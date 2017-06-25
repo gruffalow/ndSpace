@@ -4,8 +4,13 @@
   (:import [gruffalow.nds.interfaces INDSEngine])
   (:gen-class))
 
+
+(defn incrementer
+  "just to prove the test stuff is working"
+  [number] (+ number 1))
+
 (defn ndsEngineClass
-  "what does this text do?"
+  "basic engine class"
   []
   (reify
     INDSEngine
