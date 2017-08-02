@@ -7,20 +7,19 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 
 import java.io.*;
-import java.nio.file.Paths;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class AppMain {
-    public static final String CODEC = "codec";
-    public static final String ENCODE = "encode";
-    public static final String DECODE = "decode";
-    public static final String FILE = "file";
-    public static final String VERBOSE = "verbose";
-    public static final String HELP = "help";
-    public static final String QUESTION_MARK = "?";
+    private static final String CODEC = "codec";
+    private static final String ENCODE = "encode";
+    private static final String DECODE = "decode";
+    private static final String FILE = "file";
+    private static final String VERBOSE = "verbose";
+    private static final String HELP = "help";
+    private static final String QUESTION_MARK = "?";
     public NDSEngine engine;
 
     public static void main(String[] args) {
@@ -61,7 +60,7 @@ public class AppMain {
 
     private FileOutputStream getEncodedOutputStream(OptionSet options, Config config) throws FileNotFoundException {
         File inputFile = (File)options.valueOf(FILE);
-        File outputFile = new File(new StringBuilder().append(inputFile.getAbsolutePath()).append(".nds").toString());
+        File outputFile = new File(String.format("%s.nds", inputFile.getAbsolutePath()));
         if (config.isVerbose()) System.out.println("Output File : "+outputFile.getAbsolutePath());
         return new FileOutputStream(outputFile);
     }
