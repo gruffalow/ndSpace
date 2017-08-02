@@ -7,7 +7,7 @@
     <groupId>gruffalow</groupId>
     <artifactId>ndSpace</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>clojure</packaging>
+    <!--<packaging>clojure</packaging>-->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,10 +17,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.clojure</groupId>
-            <artifactId>clojure</artifactId>
-            <version>1.8.0</version>
+            <groupId>net.sf.jopt-simple</groupId>
+            <artifactId>jopt-simple</artifactId>
+            <version>5.0.4</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.clojure</groupId>-->
+            <!--<artifactId>clojure</artifactId>-->
+            <!--<version>1.8.0</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -45,16 +50,22 @@
             <version>1.2.5</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>com.theoryinpractise</groupId>
-                <artifactId>clojure-maven-plugin</artifactId>
-                <version>1.8.1</version>
-                <extensions>true</extensions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>com.theoryinpractise</groupId>-->
+                <!--<artifactId>clojure-maven-plugin</artifactId>-->
+                <!--<version>1.8.1</version>-->
+                <!--<extensions>true</extensions>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -81,6 +92,7 @@
                             <mainClass>gruffalow.nds.AppMain</mainClass>
                         </manifest>
                     </archive>
+                    <forceCreation>true</forceCreation>
                 </configuration>
             </plugin>
         </plugins>

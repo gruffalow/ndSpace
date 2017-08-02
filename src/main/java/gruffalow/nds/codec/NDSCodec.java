@@ -2,6 +2,7 @@ package gruffalow.nds.codec;
 
 import gruffalow.nds.config.Config;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -15,6 +16,6 @@ public interface NDSCodec {
 
     void initialize();
     void seedKey(InputStream keyStream);
-    void encode(InputStream rawInput);
-    void decode(InputStream encodedInput);
+    void encode(InputStream rawInput) throws IOException;
+    void decode(InputStream encodedInput) throws IOException;
 }

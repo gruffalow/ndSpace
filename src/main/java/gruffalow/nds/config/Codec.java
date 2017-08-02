@@ -1,11 +1,13 @@
 package gruffalow.nds.config;
 
 import gruffalow.nds.codec.BasicNDSCodec;
+import gruffalow.nds.codec.LocalCopyNDSCodec;
 import gruffalow.nds.codec.NDSCodec;
 import java.util.function.Supplier;
 
 public enum Codec {
-    BASIC(BasicNDSCodec::new);
+    BASIC(BasicNDSCodec::new),
+    LOCALCOPY(LocalCopyNDSCodec::new);
 
     private final Supplier<NDSCodec> codecSupplier;
 
