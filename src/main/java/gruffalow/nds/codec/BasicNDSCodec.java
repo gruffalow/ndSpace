@@ -12,7 +12,6 @@ public class BasicNDSCodec extends TypicalBaseNDSCodec{
 
     }
 
-
     @Override
     public void seedKey(InputStream keyStream) {
 

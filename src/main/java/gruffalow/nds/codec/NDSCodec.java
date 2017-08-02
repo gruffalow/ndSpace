@@ -9,9 +9,11 @@ public interface NDSCodec {
     void setConfig(Config config);
     NDSCodec withConfig(Config config);
     Config getConfig();
-    void initialize();
     void setOutputStream(OutputStream outputStream);
+    NDSCodec withOutputStream(OutputStream outputStream);
     OutputStream getOutputStream();
+
+    void initialize();
     void seedKey(InputStream keyStream);
     void encode(InputStream rawInput);
     void decode(InputStream encodedInput);

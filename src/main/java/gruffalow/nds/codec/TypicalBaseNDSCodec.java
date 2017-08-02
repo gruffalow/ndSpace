@@ -30,6 +30,11 @@ public abstract class TypicalBaseNDSCodec implements NDSCodec {
         this.outputStream = outputStream;
     }
 
+    @Override
+    public NDSCodec withOutputStream(OutputStream outputStream) {
+        setOutputStream(outputStream);
+        return this;
+    }
 
     @Override
     public OutputStream getOutputStream() {
