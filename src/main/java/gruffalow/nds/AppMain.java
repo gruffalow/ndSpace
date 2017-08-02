@@ -1,15 +1,15 @@
 package gruffalow.nds;
 
-import gruffalow.nds.factories.NDSEngineFactory;
-import gruffalow.nds.interfaces.INDSEngine;
-
-/**
- * Created by pete on 25/06/2017.
- */
 public class AppMain {
+    public NDSEngine engine;
+
     public static void main(String[] args) {
+        AppMain appMain = new AppMain();
+        appMain.runner(args);
+    }
+
+    public void runner(String[] args) {
         System.out.println("N-Dimensional Space Mapping provides a technique to compress and encrypt data within a single algorithm.");
-        INDSEngine engine = NDSEngineFactory.create();
-        engine.initialize();
+        engine = new NDSEngine();
     }
 }

@@ -1,4 +1,4 @@
-package gruffalow.nds;
+package gruffalow.nds.cukes;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
