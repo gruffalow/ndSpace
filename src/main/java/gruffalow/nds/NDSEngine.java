@@ -1,5 +1,6 @@
 package gruffalow.nds;
 
+import gruffalow.nds.codec.BitWritingException;
 import gruffalow.nds.codec.NDSCodec;
 import gruffalow.nds.config.Config;
 
@@ -26,7 +27,7 @@ public class NDSEngine {
         return config.getCodec().getCodecInstance().withConfig(config);
     }
 
-    public void encode(InputStream rawInput, OutputStream encodedOutput) throws IOException {
+    public void encode(InputStream rawInput, OutputStream encodedOutput) throws IOException, BitWritingException {
         if (config.isVerbose()) System.out.println("Encoding using codec : "+config.getCodec());
         NDSCodec codec = getCodec().withOutputStream(encodedOutput);
         codec.initialize();

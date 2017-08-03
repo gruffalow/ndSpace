@@ -1,5 +1,6 @@
 package gruffalow.nds;
 
+import gruffalow.nds.codec.BitWritingException;
 import gruffalow.nds.config.Codec;
 import gruffalow.nds.config.Config;
 import joptsimple.OptionException;
@@ -21,17 +22,42 @@ public class AppMain {
     private static final String HELP = "help";
     private static final String QUESTION_MARK = "?";
     public NDSEngine engine;
+    public DiagnosticDisplay diagnosticDisplay;
+
+    public AppMain(DiagnosticDisplay diagnosticDisplay) {
+        this.diagnosticDisplay = diagnosticDisplay;
+    }
+
+    public AppMain() {}
 
     public static void main(String[] args) {
-        AppMain appMain = new AppMain();
+        AppMain appMain = null;
+        OptionParser parser = getOptionParser();
+        OptionSet options = parser.parse(args);
+        if (options.has(VERBOSE)) {
+            Thread diagnosticDisplayThread = new Thread() {
+                @Override
+                public void run() {
+                    javafx.application.Application.launch(DiagnosticDisplay.class);
+                }
+            };
+            diagnosticDisplayThread.start();
+            DiagnosticDisplay diagnosticDisplay = DiagnosticDisplay.waitForStartUpTest();
+            appMain = new AppMain(diagnosticDisplay);
+        } else {
+            appMain = new AppMain();
+        }
+
         try {
             appMain.runner(args);
-        } catch (OptionException|IOException|IllegalArgumentException ex) {
+        } catch (OptionException|IOException|IllegalArgumentException|BitWritingException ex) {
             System.err.println(ex.getMessage());
         }
     }
 
-    public void runner(String[] args) throws IOException {
+
+
+    public void runner(String[] args) throws IOException, BitWritingException {
         OptionParser parser = getOptionParser();
         OptionSet options = parser.parse(args);
         if (options.has(HELP)) {
@@ -96,7 +122,7 @@ public class AppMain {
         return config;
     }
 
-    private OptionParser getOptionParser() {
+    private static OptionParser getOptionParser() {
         return new OptionParser(){
             {
                 acceptsAll(Arrays.asList( HELP, QUESTION_MARK ), "show help" ).forHelp();

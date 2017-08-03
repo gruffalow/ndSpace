@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import gruffalow.nds.AppMain;
 import gruffalow.nds.NDSEngine;
+import gruffalow.nds.codec.BitWritingException;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
@@ -21,7 +22,7 @@ public class MyStepdefs implements En{
             AppMain appMain = new AppMain();
             try {
                 appMain.runner(new String[0]);
-            } catch (IOException e) {
+            } catch (IOException | BitWritingException e) {
                 fail(e.getMessage());
             }
             world.appmain = appMain;
@@ -46,7 +47,7 @@ public class MyStepdefs implements En{
             AppMain appMain = new AppMain();
             try {
                 appMain.runner(world.commandLine);
-            } catch (java.io.IOException e) {
+            } catch (IOException | BitWritingException e) {
                 fail(e.getMessage());
             }
             world.appmain = appMain;

@@ -16,6 +16,6 @@ public interface NDSCodec {
 
     void initialize();
     void seedKey(InputStream keyStream);
-    void encode(InputStream rawInput) throws IOException;
+    void encode(InputStream rawInput) throws IOException, BitWritingException;
     void decode(InputStream encodedInput) throws IOException;
 }
