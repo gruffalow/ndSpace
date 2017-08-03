@@ -6,6 +6,7 @@ public class Config {
     private Codec codec = Codec.BASIC;
     private boolean verbose = false;
     private DiagnosticDisplay diagnosticDisplay;
+    private boolean timings;
 
     public static Config defaultConfig() {
         return new Config();
@@ -44,5 +45,18 @@ public class Config {
     public Config withDiagnosticDisplay(DiagnosticDisplay diagnosticDisplay) {
         setDiagnosticDisplay(diagnosticDisplay);
         return this;
+    }
+
+    public Config withTimings(boolean timings) {
+        setTimings(timings);
+        return this;
+    }
+
+    public void setTimings(boolean timings) {
+        this.timings = timings;
+    }
+
+    public boolean isTimings() {
+        return timings;
     }
 }

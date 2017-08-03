@@ -49,7 +49,7 @@ public class TreeSpaceNode {
 
         int startPoint = Math.max((int) (startInclusive/ratio),0);
         int endPoint = Math.min((int) (endInclusive/ratio),width-1);
-        double range = ((double)(endPoint - startPoint))/((double)(numberSpaceEnd - numberSpaceStart));
+        double range = ((double)(endInclusive - startInclusive))/((double)(numberSpaceEnd - numberSpaceStart));
         for (int x = startPoint; x<=endPoint; x++) {
             Color c = new Color(1.0-range,range,1.0-range, 0.5);
                 writer.setColor(x, level, c);

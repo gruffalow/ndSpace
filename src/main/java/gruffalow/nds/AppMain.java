@@ -19,6 +19,7 @@ public class AppMain {
     private static final String DECODE = "decode";
     private static final String FILE = "file";
     private static final String VERBOSE = "verbose";
+    private static final String TIMING = "timing";
     private static final String HELP = "help";
     private static final String QUESTION_MARK = "?";
     public NDSEngine engine;
@@ -72,6 +73,7 @@ public class AppMain {
         }
         Config config = createConfig(options);
         engine = new NDSEngine(config);
+        long startTime = System.currentTimeMillis();
         if (options.has(ENCODE)) {
             InputStream rawInputStream = getInputEncodingStream(options, config);
             OutputStream encodedOutputStream = getEncodedOutputStream(options, config);
@@ -82,6 +84,9 @@ public class AppMain {
             OutputStream decodedOutputStream = getDecodedOutputStream(options, config);
             engine.decode(encodedStream, decodedOutputStream);
         }
+        long endTime = System.currentTimeMillis();
+
+        if (config.isTimings()) System.out.println(MessageFormat.format("Operation took : {0}ms", endTime - startTime));
     }
 
     private FileOutputStream getEncodedOutputStream(OptionSet options, Config config) throws FileNotFoundException {
@@ -122,6 +127,9 @@ public class AppMain {
             config=config.withVerbose(true).withDiagnosticDisplay(diagnosticDisplay);
 
         }
+        if (options.has(TIMING)) {
+            config=config.withTimings(true);
+        }
         return config;
     }
 
@@ -130,6 +138,7 @@ public class AppMain {
             {
                 acceptsAll(Arrays.asList( HELP, QUESTION_MARK ), "show help" ).forHelp();
                 accepts(VERBOSE, "verbose output");
+                accepts(TIMING, "timing detail output");
                 mutuallyExclusive(
                     accepts(ENCODE, "Encode the input file"),
                     accepts(DECODE, "Decode the input file")
