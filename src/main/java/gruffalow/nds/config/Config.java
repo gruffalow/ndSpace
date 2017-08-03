@@ -1,8 +1,11 @@
 package gruffalow.nds.config;
 
+import gruffalow.nds.DiagnosticDisplay;
+
 public class Config {
     private Codec codec = Codec.BASIC;
     private boolean verbose = false;
+    private DiagnosticDisplay diagnosticDisplay;
 
     public static Config defaultConfig() {
         return new Config();
@@ -31,6 +34,15 @@ public class Config {
 
     public Config withVerbose(boolean verbose) {
         setVerbose(verbose);
+        return this;
+    }
+
+    public DiagnosticDisplay getDiagnosticDisplay() {return diagnosticDisplay;}
+
+    public void setDiagnosticDisplay(DiagnosticDisplay diagnosticDisplay) {this.diagnosticDisplay = diagnosticDisplay;}
+
+    public Config withDiagnosticDisplay(DiagnosticDisplay diagnosticDisplay) {
+        setDiagnosticDisplay(diagnosticDisplay);
         return this;
     }
 }

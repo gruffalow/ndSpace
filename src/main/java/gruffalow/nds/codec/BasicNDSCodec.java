@@ -14,8 +14,10 @@ public class BasicNDSCodec extends TypicalBaseNDSCodec{
     public void initialize() {
         root = new TreeSpaceNode(0,0xffffffffL);
 
-        if (getConfig().isVerbose())
+        if (getConfig().isVerbose()) {
             System.out.println(MessageFormat.format("root node from {0} to {1}", root.startInclusive, root.endInclusive));
+            root.drawModel(getConfig().getDiagnosticDisplay());
+        }
     }
 
     @Override
@@ -40,6 +42,9 @@ public class BasicNDSCodec extends TypicalBaseNDSCodec{
             }
             try {
                 root.writeAddress(point, writer);
+                if (getConfig().isVerbose()) {
+                    root.drawModel(getConfig().getDiagnosticDisplay());
+                }
             } catch (PathFindingException e) {
                 throw new IOException(e);
             }

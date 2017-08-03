@@ -6,6 +6,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -16,6 +18,7 @@ import java.util.concurrent.CountDownLatch;
 public class DiagnosticDisplay extends Application {
     public static final CountDownLatch latch = new CountDownLatch(1);
     public static DiagnosticDisplay diagnosticDisplay = null;
+    private ImageView imageView;
 
     public static DiagnosticDisplay waitForStartUpTest() {
         try {
@@ -28,7 +31,6 @@ public class DiagnosticDisplay extends Application {
 
     public static void setDiagnosticDisplay(DiagnosticDisplay diagnosticDisplay0) {
         diagnosticDisplay = diagnosticDisplay0;
-        latch.countDown();
     }
 
     public DiagnosticDisplay() {
@@ -50,18 +52,34 @@ public class DiagnosticDisplay extends Application {
         gridpane.setHgap(10);
         gridpane.setVgap(10);
 
-        final ImageView imv = new ImageView();
-        final Image image2 = new Image(DiagnosticDisplay.class.getResourceAsStream("/pexels-photo-149988.jpg"));
-        imv.setImage(image2);
+        imageView = new ImageView();
+        //final Image image2 = new Image(DiagnosticDisplay.class.getResourceAsStream("/pexels-photo-149988.jpg"));
+
+        final WritableImage image3 = new WritableImage(640,480);
+        PixelWriter modelPixelWriter = image3.getPixelWriter();
+        for (int x=0 ; x<640 ; x++) {
+            for (int y=0; y<480 ; y++) {
+                Color c = new Color(0.5, 0.5, 0.5, 0.5);
+                modelPixelWriter.setColor(x, y, c);
+            }
+        }
+        imageView.setImage(image3);
+
+        
 
         final HBox pictureRegion = new HBox();
 
-        pictureRegion.getChildren().add(imv);
+        pictureRegion.getChildren().add(imageView);
         gridpane.add(pictureRegion, 1, 1);
 
 
         root.getChildren().add(gridpane);
         primaryStage.setScene(scene);
         primaryStage.show();
+        latch.countDown();
+    }
+
+    public void setModelImage(Image image) {
+        imageView.setImage(image);
     }
 }

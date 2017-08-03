@@ -118,7 +118,10 @@ public class AppMain {
 
     private Config createConfig(OptionSet options) {
         Config config = new Config().withCodec((Codec) options.valueOf(CODEC));
-        if (options.has(VERBOSE)) config=config.withVerbose(true);
+        if (options.has(VERBOSE)) {
+            config=config.withVerbose(true).withDiagnosticDisplay(diagnosticDisplay);
+
+        }
         return config;
     }
 
